@@ -3,15 +3,13 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <unordered_map>
+#include <limits>
+
 #include "main.h"
 
 int main(int argc, char const *argv[])
 {
-    int frames = 0;
-    int pages = 0;
-    int pageFaults = 0;
-    int pageSize = 0;
-
    /*  if (argc == 2)
     {
         pageSize = std::stoi(argv[1]);
@@ -52,9 +50,58 @@ int main(int argc, char const *argv[])
     FIFO(v2048, 8);
     FIFO(v2048, 12);
 
-    
-    
+    LRU(v512, 4);
+    LRU(v512, 8);
+    LRU(v512, 12);
+    LRU(v1024, 4);
+    LRU(v1024, 8);
+    LRU(v1024, 12);
+    LRU(v2048, 4);
+    LRU(v2048, 8);
+    LRU(v2048, 12);
+
     return 0;
+}
+void LRU(std::vector<int> &data, int frameSize)
+{
+    std::unordered_map<int, int> currentAddrsMap;
+    std::vector<int> activePages;
+    int pageFaults = 0;
+    for (int i = 0; i < data.size(); i++)
+    {
+        auto currentAddr = std::find(activePages.begin(), activePages.end(), data[i]);
+        if (activePages.size() < frameSize)
+        {
+            if (currentAddr == activePages.end())
+            {
+                activePages.push_back(data[i]);
+                pageFaults++;
+            }
+            currentAddrsMap[data[i]] = i;
+        }
+        else
+        {
+            if (currentAddr == activePages.end())
+            {
+                int min = std::numeric_limits<int>::max();
+                int minKey;
+
+                for (const auto &j : activePages)
+                {
+                    if (currentAddrsMap[j] < min)
+                    {
+                        min = currentAddrsMap[j];
+                        minKey = j;
+                    }
+                }
+                std::replace(activePages.begin(), activePages.end(), minKey, data[i]);
+                pageFaults++;
+            }
+            currentAddrsMap[data[i]] = i;
+        }
+    }
+    std::cout << "Page Size\t#of frames\tPage replacement ALG\tPage fault percentage\n";
+    std::cout << data.size() << "\t\t" << frameSize << "\t\t" << "LRU\t\t\t" << ((double)pageFaults / (double)data.size())*100 << "\n";
 }
 //pages, frame size
 void FIFO(const std::vector<int> &data, int frameSize)
