@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/marks/CS471PROJECT/VMEMMAN/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/virtualMemmoryManagement.dir/main.cpp.o -c /home/marks/CS471PROJECT/VMEMMAN/main.cpp",
+  "file": "/home/marks/CS471PROJECT/VMEMMAN/main.cpp"
+}
+]

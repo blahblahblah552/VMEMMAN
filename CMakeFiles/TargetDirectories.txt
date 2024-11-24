@@ -1,0 +1,3 @@
+/home/marks/CS471PROJECT/VMEMMAN/CMakeFiles/virtualMemmoryManagement.dir
+/home/marks/CS471PROJECT/VMEMMAN/CMakeFiles/edit_cache.dir
+/home/marks/CS471PROJECT/VMEMMAN/CMakeFiles/rebuild_cache.dir
