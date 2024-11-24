@@ -37,12 +37,6 @@ int main(int argc, char const *argv[])
     std::vector<std::byte> data(fileSize);
     inFile.read(reinterpret_cast<char*>(data.data()), fileSize);
 
-    // Print the bytes
-    for (const auto& byte : data) {
-        std::cout << std::oct << static_cast<int>(byte) << " ";
-    }
-    std::cout << std::endl;
-
     std::vector<std::byte> v512,v1024,v2048;
     v512.assign(data.begin(), data.begin()+512);
     v1024.assign(data.begin(), data.begin()+1024);
