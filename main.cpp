@@ -20,23 +20,30 @@ int main(int argc, char const *argv[])
         exit(1);
     } */
 
-    std::vector<int> data;
-    std::ifstream inFile("data.txt");
-
-    if (inFile.is_open())
-    {   int temp = 0;
-        data.reserve(3000);
-        while (inFile >> temp)
-        {
-            data.emplace_back(temp);
-        }
-        inFile.close();
-    }else
-    {
+   
+    std::ifstream inFile("data.txt", std::ios::binary);
+    if (!inFile.is_open())
+    {   
         std::cerr << "unable to open file\n";
+        exit(1);
     }
 
-    std::vector<int> v512,v1024,v2048;
+    // Get file size
+    inFile.seekg(0, std::ios::end);
+    std::streampos fileSize = inFile.tellg();
+    inFile.seekg(0, std::ios::beg);
+
+    // Read file into a vector of bytes
+    std::vector<std::byte> data(fileSize);
+    inFile.read(reinterpret_cast<char*>(data.data()), fileSize);
+
+    // Print the bytes
+    for (const auto& byte : data) {
+        std::cout << std::oct << static_cast<int>(byte) << " ";
+    }
+    std::cout << std::endl;
+
+    std::vector<std::byte> v512,v1024,v2048;
     v512.assign(data.begin(), data.begin()+512);
     v1024.assign(data.begin(), data.begin()+1024);
     v2048.assign(data.begin(), data.begin()+2048);
@@ -62,10 +69,10 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
-void LRU(std::vector<int> &data, int frameSize)
+void LRU(std::vector<std::byte> &data, int frameSize)
 {
-    std::unordered_map<int, int> currentAddrsMap;
-    std::vector<int> activePages;
+    std::unordered_map<std::byte, int> currentAddrsMap;
+    std::vector<std::byte> activePages;
     int pageFaults = 0;
     for (int i = 0; i < data.size(); i++)
     {
@@ -84,7 +91,7 @@ void LRU(std::vector<int> &data, int frameSize)
             if (currentAddr == activePages.end())
             {
                 int min = std::numeric_limits<int>::max();
-                int minKey;
+                std::byte minKey;
 
                 for (const auto &j : activePages)
                 {
@@ -104,11 +111,11 @@ void LRU(std::vector<int> &data, int frameSize)
     std::cout << data.size() << "\t\t" << frameSize << "\t\t" << "LRU\t\t\t" << ((double)pageFaults / (double)data.size())*100 << "\n";
 }
 //pages, frame size
-void FIFO(const std::vector<int> &data, int frameSize)
+void FIFO(const std::vector<std::byte> &data, int frameSize)
 {
     int pageFaults = 0;
-    std::vector<int> activePages;
-    std::queue<int> fifoQueue;
+    std::vector<std::byte> activePages;
+    std::queue<std::byte> fifoQueue;
     for (auto add : data)
     {
         auto currentAdd = std::find(activePages.begin(), activePages.end(), add);
