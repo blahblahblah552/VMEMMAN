@@ -1,0 +1,3 @@
+/home/marks/CS471PROJECT/VMEMMAN/out/build/GCC 11.4.0 x86_64-linux-gnu/CMakeFiles/virtualMemmoryManagement.dir
+/home/marks/CS471PROJECT/VMEMMAN/out/build/GCC 11.4.0 x86_64-linux-gnu/CMakeFiles/edit_cache.dir
+/home/marks/CS471PROJECT/VMEMMAN/out/build/GCC 11.4.0 x86_64-linux-gnu/CMakeFiles/rebuild_cache.dir

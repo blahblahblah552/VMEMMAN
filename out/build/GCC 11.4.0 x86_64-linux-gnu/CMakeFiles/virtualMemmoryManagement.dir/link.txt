@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/virtualMemmoryManagement.dir/main.cpp.o -o virtualMemmoryManagement 

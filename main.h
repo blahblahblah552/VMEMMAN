@@ -1,5 +1,9 @@
 #pragma once
-
-void FIFO(const std::vector<std::byte> &data, int frameSize);
-
-void LRU(std::vector<std::byte> &data, int frameSize);
+template <typename T>
+void fifo(const std::vector<T> &data, int frameSize);
+template <typename T>
+void lru(std::vector<T> &data, int frameSize);
+template <typename T>
+void mru(const std::vector<T> &data, int frameSize);
+template <typename T>
+void optimal(const std::vector<T> &data, int frameSize);
