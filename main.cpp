@@ -103,15 +103,25 @@ void optimal(const std::vector<T> &data, int frameSize)
                 pageFaults++;
                 typename std::vector<T>::const_iterator farthest = data.begin()+i;
                 typename std::vector<T>::const_iterator checking;
-                for (int j = 0; j < frameSize; j++)
+                int j;
+                auto far = *farthest;
+                for (j = 0; j < frameSize; j++)
                 {
                     checking = std::find(data.begin()+i,data.end(), activePages[j]);
-                    if (checking > farthest)
+                    auto temp1 = std::distance(data.begin(), checking);
+                    auto temp2 = std::distance(data.begin(), farthest);
+                    if (checking == data.end())
+                    {
+                        far = activePages[j]; 
+                        break;
+                    }                    
+                    if (temp1 > temp2)
                     {
                         farthest = checking;
+                        far = *checking;
                     }
                 }
-                std::replace(activePages.begin(), activePages.end(), *farthest, data[i]);
+                std::replace(activePages.begin(), activePages.end(), far, data[i]);
             }
         }
     }
