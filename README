@@ -1,0 +1,20 @@
+# Virtual Memory Management Problem
+Compare the performance of the following page replacement algorithms: FIFO, LRU
+(Least recently used), MRU (most recently used), and optimal. You are provided with a
+file containing the virtual addresses (byte-addressable) that are being referenced by
+a single program (a process). Run your program with the following parameters:
+Page size: 512, 1024, 2048 (bytes)
+Number of frames allocated to the process: 4, 8, 12
+(So you will have 9 runs, with each page size and number of frames combination. Each
+run contains statistics for each of the four page replacement algorithms.
+You must collect and print the following statistics
+Page Size #of frames Page replacement ALG Page fault percentage
+
+## Installation
+this uses a makefile to generate the exicution code the data.txt is the file mentioned that is required for the program to properly exicute.
+
+use ``` make ```to compile the code 
+
+use ``` ./virtualMemmoryManagement ``` to execute the code 
+
+use ``` make clean ``` to remove compiled files the code 

@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
  
     std::ifstream inFile("data.txt", std::ios::binary);
